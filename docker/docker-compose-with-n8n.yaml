@@ -410,6 +410,7 @@ x-shared-env: &shared-api-worker-env
   MARKETPLACE_ENABLED: ${MARKETPLACE_ENABLED:-true}
   MARKETPLACE_API_URL: ${MARKETPLACE_API_URL:-https://marketplace.dify.ai}
   FORCE_VERIFYING_SIGNATURE: ${FORCE_VERIFYING_SIGNATURE:-true}
+  N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL:-}
 
 services:
   # API service
@@ -1001,6 +1002,8 @@ services:
     restart: always
     ports:
       - "5678:5678"
+    environment:
+      WEBHOOK_URL: ${N8N_WEBHOOK_URL:-}
     volumes:
       - n8n_storage:/home/node/.n8n
       - ./n8n/backup:/backup

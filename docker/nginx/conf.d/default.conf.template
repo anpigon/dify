@@ -6,7 +6,6 @@ server {
 
     location /console/api {
       proxy_pass http://api:5001;
-      ㅐ
     }
 
     location /api {
@@ -50,6 +49,7 @@ server {
 server {
     listen ${NGINX_PORT};
     server_name ${N8N_SERVER_NAME};
+
     location ~ ^/.* {
         proxy_pass http://n8n:5678;
         include proxy.conf;

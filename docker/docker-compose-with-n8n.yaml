@@ -1008,6 +1008,8 @@ services:
       - n8n_storage:/home/node/.n8n
       - ./n8n/backup:/backup
       - ./shared:/data/shared
+    networks:
+      - shared_bridge_network
 
 networks:
   # create a network between sandbox, api and ssrf_proxy, and can not access outside.

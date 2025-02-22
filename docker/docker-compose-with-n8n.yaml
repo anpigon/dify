@@ -1010,6 +1010,8 @@ services:
       - ./shared:/data/shared
     networks:
       - shared_bridge_network
+      - ssrf_proxy_network
+      - default
 
 networks:
   # create a network between sandbox, api and ssrf_proxy, and can not access outside.
@@ -1021,6 +1023,8 @@ networks:
   opensearch-net:
     driver: bridge
     internal: true
+  shared_bridge_network:
+    driver: bridge
 
 volumes:
   oradata:

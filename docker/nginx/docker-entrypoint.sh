@@ -21,6 +21,7 @@ if [ "${NGINX_HTTPS_ENABLED}" = "true" ]; then
     export HTTPS_CONFIG
     # Substitute the HTTPS_CONFIG in the default.conf.template with content from https.conf.template
     envsubst '${HTTPS_CONFIG}' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
+    envsubst '${HTTPS_CONFIG}' < /etc/nginx/conf.d/n8n.conf.template > /etc/nginx/conf.d/n8n.conf
 fi
 export HTTPS_CONFIG
 

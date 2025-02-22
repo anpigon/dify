@@ -1,0 +1,10 @@
+# Please do not directly edit this file. Instead, modify the .env variables related to NGINX configuration.
+
+server {
+    listen ${NGINX_PORT};
+    server_name ${N8N_SERVER_NAME};
+    location ~ ^/.* {
+        proxy_pass http://localhost:5678;
+        include proxy.conf;
+    }
+}

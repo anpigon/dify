@@ -6,7 +6,7 @@ server {
 
     location /console/api {
       proxy_pass http://api:5001;
-      include proxy.conf;
+      ㅐ
     }
 
     location /api {
@@ -45,4 +45,13 @@ server {
 
     # placeholder for https config defined in https.conf.template
     ${HTTPS_CONFIG}
+}
+
+server {
+    listen ${NGINX_PORT};
+    server_name ${N8N_SERVER_NAME};
+    location ~ ^/.* {
+        proxy_pass http://localhost:5678;
+        include proxy.conf;
+    }
 }

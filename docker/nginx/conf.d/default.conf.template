@@ -48,7 +48,7 @@ server {
 
 server {
     listen ${NGINX_PORT};
-    server_name ${N8N_SERVER_NAME};
+    server_name n8n;
 
     location ~ ^/.* {
         proxy_pass http://n8n:5678;

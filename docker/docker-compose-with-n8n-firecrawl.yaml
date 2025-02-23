@@ -412,6 +412,7 @@ x-shared-env: &shared-api-worker-env
   FORCE_VERIFYING_SIGNATURE: ${FORCE_VERIFYING_SIGNATURE:-true}
   N8N_SERVER_NAME: ${N8N_SERVER_NAME:-_}
   N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL:-}
+  FIRECRAWL_SERVER_NAME: ${FIRECRAWL_SERVER_NAME:-_}
 
 services:
   # API service
@@ -640,6 +641,7 @@ services:
       NGINX_ENABLE_CERTBOT_CHALLENGE: ${NGINX_ENABLE_CERTBOT_CHALLENGE:-false}
       CERTBOT_DOMAIN: ${CERTBOT_DOMAIN:-}
       N8N_SERVER_NAME: ${N8N_SERVER_NAME:-_}
+      FIRECRAWL_SERVER_NAME: ${FIRECRAWL_SERVER_NAME:-_}
     depends_on:
       - api
       - web
@@ -1026,6 +1028,8 @@ services:
     depends_on:
       - redis
     command: [ "pnpm", "run", "start:firecrawl" ]
+    ports:
+      - "3003:3003"
     networks:
       - default
 

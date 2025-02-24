@@ -1006,6 +1006,11 @@ services:
       - "5678:5678"
     environment:
       WEBHOOK_URL: ${N8N_WEBHOOK_URL:-}
+      N8N_SECURE_COOKIE: false
+      # Puppeteer configurations
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
+      USER_AGENT: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     volumes:
       - n8n_storage:/home/node/.n8n
       - ./n8n/backup:/backup
@@ -1014,6 +1019,12 @@ services:
       - shared_bridge_network
       - ssrf_proxy_network
       - default
+    shm_size: '1gb'
+    # Install Chrome and required dependencies
+    command: >
+      /bin/sh -c '
+        apk add --no-cache chromium chromium-chromedriver;
+        n8n start'
 
 networks:
   # create a network between sandbox, api and ssrf_proxy, and can not access outside.

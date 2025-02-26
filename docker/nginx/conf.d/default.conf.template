@@ -56,13 +56,3 @@ server {
         proxy_set_header Connection "upgrade";
     }
 }
-
-server {
-    listen ${NGINX_PORT};
-    server_name ${FIRECRAWL_SERVER_NAME};
-
-    location ~ ^/.* {
-        proxy_pass http://firecrawl:3003;
-        include proxy.conf;
-    }
-}

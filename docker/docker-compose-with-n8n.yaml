@@ -1002,7 +1002,7 @@ services:
     ports:
       - 5678:5678
     volumes:
-      - ./volumes/n8n/storage:/home/node/.n8n
+      - n8n_data:/home/node/.n8n
     environment:
       DB_TYPE: postgresdb
       DB_POSTGRESDB_HOST: db
@@ -1032,3 +1032,4 @@ volumes:
   oradata:
   dify_es01_data:
   n8n_data:
+    external: true

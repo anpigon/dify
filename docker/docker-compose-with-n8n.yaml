@@ -1014,6 +1014,7 @@ services:
       N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL:-}
       GENERIC_TIMEZONE: ${N8N_TIMEZONE:-Asia/Seoul}
     networks:
+      - shared_bridge_network
       - ssrf_proxy_network
       - default
     depends_on:
@@ -1030,6 +1031,8 @@ networks:
   opensearch-net:
     driver: bridge
     internal: true
+  shared_bridge_network:
+    driver: bridge
 
 volumes:
   oradata:

@@ -158,6 +158,7 @@ docker-legacy/volumes/pgvectors/data/*
 docker-legacy/volumes/pgvector/data/*
 
 docker/volumes/app/storage/*
+docker/volumes/n8n/storage/*
 docker/volumes/certbot/*
 docker/volumes/db/data/*
 docker/volumes/redis/data/*

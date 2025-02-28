@@ -1002,7 +1002,7 @@ services:
     ports:
       - 5678:5678
     volumes:
-      - n8n_data:/home/node/.n8n
+      - ./volumes/n8n/storage:/home/node/.n8n
     environment:
       DB_TYPE: postgresdb
       DB_POSTGRESDB_HOST: db

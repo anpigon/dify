@@ -1015,6 +1015,7 @@ services:
       GENERIC_TIMEZONE: ${N8N_TIMEZONE:-Asia/Seoul}
     networks:
       - ssrf_proxy_network
+      - default
     depends_on:
       db:
         condition: service_healthy

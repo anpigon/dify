@@ -1003,8 +1003,6 @@ services:
       - 5678:5678
     volumes:
       - n8n_storage:/home/node/.n8n
-      - ./n8n/backup:/backup
-      - ./shared:/data/shared
     environment:
       DB_TYPE: postgresdb
       DB_POSTGRESDB_HOST: db

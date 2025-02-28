@@ -1010,13 +1010,11 @@ services:
       DB_POSTGRESDB_PORT: ${EXPOSE_DB_PORT:-5432}
       DB_POSTGRESDB_USER: ${PGUSER:-postgres}
       DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD:-difyai123456}
-      NODE_ENV: production
-      N8N_PROTOCOL: https
-      N8N_PORT: 5678
       N8N_HOST: ${N8N_SERVER_NAME:-}
       N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL:-}
-      VUE_APP_URL_BASE_API: ${N8N_WEBHOOK_URL:-}
       GENERIC_TIMEZONE: ${N8N_TIMEZONE:-Asia/Seoul}
+    networks:
+      - ssrf_proxy_network
     depends_on:
       db:
         condition: service_healthy

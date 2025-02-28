@@ -412,6 +412,7 @@ x-shared-env: &shared-api-worker-env
   FORCE_VERIFYING_SIGNATURE: ${FORCE_VERIFYING_SIGNATURE:-true}
   N8N_SERVER_NAME: ${N8N_SERVER_NAME:-_}
   N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL:-}
+  N8N_TIMEZONE: ${N8N_TIMEZONE:-Asia/Seoul}
 
 services:
   # API service
@@ -1000,31 +1001,18 @@ services:
 
   # n8n
   n8n:
-    image: n8nio/n8n:latest
+    build:
+      context: ./n8n
     restart: always
     ports:
       - "5678:5678"
     environment:
+      N8N_HOST: ${N8N_SERVER_NAME:-}
       WEBHOOK_URL: ${N8N_WEBHOOK_URL:-}
-      N8N_SECURE_COOKIE: false
-      # Puppeteer configurations
-      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
-      NODE_TLS_REJECT_UNAUTHORIZED: "0"
-      USER_AGENT: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+      GENERIC_TIMEZONE: ${N8N_TIMEZONE:-Asia/Seoul}
+      TZ: ${N8N_TIMEZONE:-Asia/Seoul}
     volumes:
-      - n8n_storage:/home/node/.n8n
-      - ./n8n/backup:/backup
-      - ./shared:/data/shared
-    networks:
-      - shared_bridge_network
-      - ssrf_proxy_network
-      - default
-    shm_size: '1gb'
-    # # Install Chrome and required dependencies
-    # command: >
-    #   /bin/sh -c '
-    #     apk add --no-cache chromium chromium-chromedriver;
-    #     n8n start'
+      - n8n_data:/home/node/.n8n
 
 networks:
   # create a network between sandbox, api and ssrf_proxy, and can not access outside.
@@ -1042,4 +1030,5 @@ networks:
 volumes:
   oradata:
   dify_es01_data:
-  n8n_storage:
+  n8n_data:
+    external: true

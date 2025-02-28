@@ -410,9 +410,6 @@ x-shared-env: &shared-api-worker-env
   MARKETPLACE_ENABLED: ${MARKETPLACE_ENABLED:-true}
   MARKETPLACE_API_URL: ${MARKETPLACE_API_URL:-https://marketplace.dify.ai}
   FORCE_VERIFYING_SIGNATURE: ${FORCE_VERIFYING_SIGNATURE:-true}
-  N8N_SERVER_NAME: ${N8N_SERVER_NAME:-_}
-  N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL:-}
-  N8N_TIMEZONE: ${N8N_TIMEZONE:-Asia/Seoul}
 
 services:
   # API service
@@ -999,20 +996,32 @@ services:
     volumes:
       - ./volumes/unstructured:/app/data
 
-  # n8n
   n8n:
-    build:
-      context: ./n8n
+    image: docker.n8n.io/n8nio/n8n:latest
     restart: always
     ports:
-      - "5678:5678"
-    environment:
-      N8N_HOST: ${N8N_SERVER_NAME:-}
-      WEBHOOK_URL: ${N8N_WEBHOOK_URL:-}
-      GENERIC_TIMEZONE: ${N8N_TIMEZONE:-Asia/Seoul}
-      TZ: ${N8N_TIMEZONE:-Asia/Seoul}
+      - 5678:5678
     volumes:
-      - n8n_data:/home/node/.n8n
+      - n8n_storage:/home/node/.n8n
+      - ./n8n/backup:/backup
+      - ./shared:/data/shared
+    environment:
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: db
+      DB_POSTGRESDB_DATABASE: ${POSTGRES_DB:-dify}
+      DB_POSTGRESDB_USER: ${PGUSER:-postgres}
+      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD:-difyai123456}
+      N8N_DIAGNOSTICS_ENABLED: false
+      N8N_PERSONALIZATION_ENABLED: false
+      N8N_ENCRYPTION_KEY:
+      N8N_USER_MANAGEMENT_JWT_SECRET:
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: true
+      N8N_SERVER_NAME: ${N8N_SERVER_NAME:-_}
+      N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL:-}
+      N8N_TIMEZONE: ${N8N_TIMEZONE:-Asia/Seoul}
+    depends_on:
+      db:
+        condition: service_healthy
 
 networks:
   # create a network between sandbox, api and ssrf_proxy, and can not access outside.
@@ -1024,11 +1033,8 @@ networks:
   opensearch-net:
     driver: bridge
     internal: true
-  shared_bridge_network:
-    driver: bridge
 
 volumes:
   oradata:
   dify_es01_data:
-  n8n_data:
-    external: true
+  n8n_storage:

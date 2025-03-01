@@ -1003,6 +1003,7 @@ services:
       - 5678:5678
     volumes:
       - n8n_data:/home/node/.n8n
+      - /local-files:/files
     environment:
       DB_TYPE: postgresdb
       DB_POSTGRESDB_HOST: db
@@ -1010,6 +1011,7 @@ services:
       DB_POSTGRESDB_PORT: ${EXPOSE_DB_PORT:-5432}
       DB_POSTGRESDB_USER: ${PGUSER:-postgres}
       DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD:-difyai123456}
+      NODE_ENV: production
       N8N_HOST: ${N8N_SERVER_NAME:-}
       WEBHOOK_URL: ${N8N_WEBHOOK_URL:-}
       GENERIC_TIMEZONE: ${N8N_TIMEZONE:-Asia/Seoul}

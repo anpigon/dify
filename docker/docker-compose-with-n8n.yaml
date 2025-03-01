@@ -1034,4 +1034,3 @@ volumes:
   oradata:
   dify_es01_data:
   n8n_data:
-    external: true

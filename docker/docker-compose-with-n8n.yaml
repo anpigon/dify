@@ -1020,6 +1020,10 @@ services:
       GENERIC_TIMEZONE: ${N8N_TIMEZONE:-Asia/Seoul}
       N8N_RUNNERS_ENABLED: true
       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: false
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
     networks:
       - n8n_network
     extra_hosts:

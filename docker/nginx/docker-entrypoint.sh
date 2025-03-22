@@ -38,6 +38,7 @@ envsubst "$env_vars" < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 envsubst "$env_vars" < /etc/nginx/proxy.conf.template > /etc/nginx/proxy.conf
 
 envsubst "$env_vars" < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
+envsubst "$env_vars" < /etc/nginx/conf.d/n8n.conf.template > /etc/nginx/conf.d/n8n.conf
 
 # Start Nginx using the default entrypoint
 exec nginx -g 'daemon off;'

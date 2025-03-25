@@ -206,3 +206,7 @@ plugins.jsonl
 
 # mise
 mise.toml
+
+# n8n
+.qodo
+docker/nginx/conf.d/*.conf

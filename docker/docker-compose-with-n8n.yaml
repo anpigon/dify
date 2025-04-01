@@ -1083,13 +1083,13 @@ services:
     extra_hosts:
       - "host.docker.internal:${HOST_GATEWAY_IP:-host-gateway}"
 
-  rss-bridge:
-    image: rssbridge/rss-bridge:latest
-    volumes:
-      - ./rss-bridge/config:/config
-    ports:
-      - 3000:80
-    restart: unless-stopped
+  # rss-bridge:
+  #   image: rssbridge/rss-bridge:latest
+  #   volumes:
+  #     - ./rss-bridge/config:/config
+  #   ports:
+  #     - 3000:80
+  #   restart: unless-stopped
 
 networks:
   # create a network between sandbox, api and ssrf_proxy, and can not access outside.

@@ -1085,18 +1085,22 @@ services:
   ollama:
     image: ollama/ollama:latest
     container_name: ollama
-    networks: ['demo']
+    networks: 
+      - ssrf_proxy_network
+      - default
     restart: unless-stopped
     ports:
       - 11434:11434
     volumes:
-      - ollama_storage:/root/.ollama
+      - ollama_data:/root/.ollama
   init-ollama:
     image: ollama/ollama:latest
-    networks: ['demo']
+    networks: 
+      - ssrf_proxy_network
+      - default
     container_name: ollama-pull-llama
     volumes:
-      - ollama_storage:/root/.ollama
+      - ollama_data:/root/.ollama
     entrypoint: /bin/sh
     environment:
       - OLLAMA_HOST=ollama:11434
@@ -1129,3 +1133,4 @@ volumes:
   oradata:
   dify_es01_data:
   n8n_data:
+  ollama_data:

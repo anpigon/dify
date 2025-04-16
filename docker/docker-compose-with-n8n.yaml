@@ -718,6 +718,8 @@ services:
       - ./volumes/qdrant:/qdrant/storage
     environment:
       QDRANT_API_KEY: ${QDRANT_API_KEY:-difyai123456}
+    networks:
+      - default
 
   # The Couchbase vector store.
   couchbase-server:

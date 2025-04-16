@@ -720,6 +720,7 @@ services:
       QDRANT_API_KEY: ${QDRANT_API_KEY:-difyai123456}
     networks:
       - default
+      - ssrf_proxy_network
 
   # The Couchbase vector store.
   couchbase-server:
